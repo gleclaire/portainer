@@ -23,6 +23,7 @@ type settingsUpdatePayload struct {
 	AllowBindMountsForRegularUsers     *bool
 	AllowPrivilegedModeForRegularUsers *bool
 	AllowVolumeBrowserForRegularUsers  *bool
+	AllowDeviceMappingForRegularUsers  *bool
 	EnableHostManagementFeatures       *bool
 	SnapshotInterval                   *string
 	TemplatesURL                       *string
@@ -142,6 +143,10 @@ func (handler *Handler) settingsUpdate(w http.ResponseWriter, r *http.Request) *
 		userSessionDuration, _ := time.ParseDuration(*payload.UserSessionTimeout)
 
 		handler.JWTService.SetUserSessionDuration(userSessionDuration)
+	}
+
+	if payload.AllowDeviceMappingForRegularUsers != nil {
+		settings.AllowDeviceMappingForRegularUsers = *payload.AllowDeviceMappingForRegularUsers
 	}
 
 	tlsError := handler.updateTLS(settings)

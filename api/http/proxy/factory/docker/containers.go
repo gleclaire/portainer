@@ -158,7 +158,8 @@ func containerHasBlackListedLabel(containerLabels map[string]interface{}, labelB
 func (transport *Transport) decorateContainerCreationOperation(request *http.Request, resourceIdentifierAttribute string, resourceType portainer.ResourceControlType) (*http.Response, error) {
 	type PartialContainer struct {
 		HostConfig struct {
-			Privileged bool `json:"Privileged"`
+			Privileged bool          `json:"Privileged"`
+			Devices    []interface{} `json:"Devices"`
 		} `json:"HostConfig"`
 	}
 
@@ -183,13 +184,17 @@ func (transport *Transport) decorateContainerCreationOperation(request *http.Req
 		endpointResourceAccess = true
 	}
 
-	if (rbacExtension != nil && !endpointResourceAccess && tokenData.Role != portainer.AdministratorRole) || (rbacExtension == nil && tokenData.Role != portainer.AdministratorRole) {
+	isAdmin := (rbacExtension != nil && endpointResourceAccess) || tokenData.Role == portainer.AdministratorRole
+
+	if !isAdmin {
 		settings, err := transport.dataStore.Settings().Settings()
 		if err != nil {
 			return nil, err
 		}
 
-		if !settings.AllowPrivilegedModeForRegularUsers {
+		if !settings.AllowPrivilegedModeForRegularUsers ||
+			!settings.AllowDeviceMappingForRegularUsers {
+
 			body, err := ioutil.ReadAll(request.Body)
 			if err != nil {
 				return nil, err
@@ -201,8 +206,12 @@ func (transport *Transport) decorateContainerCreationOperation(request *http.Req
 				return nil, err
 			}
 
-			if partialContainer.HostConfig.Privileged {
+			if !settings.AllowPrivilegedModeForRegularUsers && partialContainer.HostConfig.Privileged {
 				return nil, errors.New("forbidden to use privileged mode")
+			}
+
+			if !settings.AllowDeviceMappingForRegularUsers && len(partialContainer.HostConfig.Devices) > 0 {
+				return nil, errors.New("forbidden to use device mapping")
 			}
 
 			request.Body = ioutil.NopCloser(bytes.NewBuffer(body))

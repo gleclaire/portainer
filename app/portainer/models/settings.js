@@ -13,6 +13,7 @@ export function SettingsViewModel(data) {
   this.EdgeAgentCheckinInterval = data.EdgeAgentCheckinInterval;
   this.EnableEdgeComputeFeatures = data.EnableEdgeComputeFeatures;
   this.UserSessionTimeout = data.UserSessionTimeout;
+  this.AllowDeviceMappingForRegularUsers = data.AllowDeviceMappingForRegularUsers;
 }
 
 export function PublicSettingsViewModel(settings) {
@@ -24,6 +25,7 @@ export function PublicSettingsViewModel(settings) {
   this.EnableEdgeComputeFeatures = settings.EnableEdgeComputeFeatures;
   this.LogoURL = settings.LogoURL;
   this.OAuthLoginURI = settings.OAuthLoginURI;
+  this.AllowDeviceMappingForRegularUsers = settings.AllowDeviceMappingForRegularUsers;
 }
 
 export function LDAPSettingsViewModel(data) {

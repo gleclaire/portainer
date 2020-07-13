@@ -342,6 +342,7 @@ func (handler *Handler) deploySwarmStack(config *swarmStackDeploymentConfig) err
 	}
 
 	if !settings.AllowBindMountsForRegularUsers && !isAdminOrEndpointAdmin {
+
 		composeFilePath := path.Join(config.stack.ProjectPath, config.stack.EntryPoint)
 
 		stackContent, err := handler.FileService.GetFileContent(composeFilePath)

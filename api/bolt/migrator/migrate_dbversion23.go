@@ -15,6 +15,7 @@ func (m *Migrator) updateSettingsToDB24() error {
 	}
 
 	legacySettings.UserSessionTimeout = portainer.DefaultUserSessionTimeout
+	legacySettings.AllowDeviceMappingForRegularUsers = true
 
 	return m.settingsService.UpdateSettings(legacySettings)
 }

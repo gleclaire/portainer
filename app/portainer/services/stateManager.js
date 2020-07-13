@@ -76,6 +76,11 @@ angular.module('portainer.app').factory('StateManager', [
       LocalStorage.storeApplicationState(state.application);
     };
 
+    manager.updateAllowDeviceMappingForRegularUsers = function updateAllowDeviceMappingForRegularUsers(allowDeviceMappingForRegularUsers) {
+      state.application.allowDeviceMappingForRegularUsers = allowDeviceMappingForRegularUsers;
+      LocalStorage.storeApplicationState(state.application);
+    };
+
     function assignStateFromStatusAndSettings(status, settings) {
       state.application.analytics = status.Analytics;
       state.application.version = status.Version;
@@ -84,6 +89,7 @@ angular.module('portainer.app').factory('StateManager', [
       state.application.enableHostManagementFeatures = settings.EnableHostManagementFeatures;
       state.application.enableVolumeBrowserForNonAdminUsers = settings.AllowVolumeBrowserForRegularUsers;
       state.application.enableEdgeComputeFeatures = settings.EnableEdgeComputeFeatures;
+      state.application.allowDeviceMappingForRegularUsers = settings.AllowDeviceMappingForRegularUsers;
       state.application.validity = moment().unix();
     }
 
