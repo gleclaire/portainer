@@ -32,7 +32,7 @@ angular.module('portainer.app').controller('SettingsController', [
       enableHostManagementFeatures: false,
       enableVolumeBrowser: false,
       enableEdgeComputeFeatures: false,
-      disableStackManagementForRegularUsers: false,
+      allowStackManagementForRegularUsers: false,
     };
 
     $scope.removeFilteredContainerLabel = function (index) {
@@ -65,7 +65,7 @@ angular.module('portainer.app').controller('SettingsController', [
       settings.AllowVolumeBrowserForRegularUsers = $scope.formValues.enableVolumeBrowser;
       settings.EnableHostManagementFeatures = $scope.formValues.enableHostManagementFeatures;
       settings.EnableEdgeComputeFeatures = $scope.formValues.enableEdgeComputeFeatures;
-      settings.DisableStackManagementForRegularUsers = $scope.formValues.disableStackManagementForRegularUsers;
+      settings.AllowStackManagementForRegularUsers = !$scope.formValues.disableStackManagementForRegularUsers;
 
       $scope.state.actionInProgress = true;
       updateSettings(settings);
@@ -80,7 +80,7 @@ angular.module('portainer.app').controller('SettingsController', [
           StateManager.updateEnableHostManagementFeatures(settings.EnableHostManagementFeatures);
           StateManager.updateEnableVolumeBrowserForNonAdminUsers(settings.AllowVolumeBrowserForRegularUsers);
           StateManager.updateEnableEdgeComputeFeatures(settings.EnableEdgeComputeFeatures);
-          StateManager.updateDisableStackManagementForRegularUsers(settings.DisableStackManagementForRegularUsers);
+          StateManager.updateAllowStackManagementForRegularUsers(settings.AllowStackManagementForRegularUsers);
           $state.reload();
         })
         .catch(function error(err) {
@@ -105,7 +105,7 @@ angular.module('portainer.app').controller('SettingsController', [
           $scope.formValues.enableVolumeBrowser = settings.AllowVolumeBrowserForRegularUsers;
           $scope.formValues.enableHostManagementFeatures = settings.EnableHostManagementFeatures;
           $scope.formValues.enableEdgeComputeFeatures = settings.EnableEdgeComputeFeatures;
-          $scope.formValues.disableStackManagementForRegularUsers = settings.DisableStackManagementForRegularUsers;
+          $scope.formValues.disableStackManagementForRegularUsers = !settings.AllowStackManagementForRegularUsers;
         })
         .catch(function error(err) {
           Notifications.error('Failure', err, 'Unable to retrieve application settings');

@@ -24,14 +24,15 @@ func (store *Store) Init() error {
 					portainer.LDAPGroupSearchSettings{},
 				},
 			},
-			OAuthSettings:                      portainer.OAuthSettings{},
-			AllowBindMountsForRegularUsers:     true,
-			AllowPrivilegedModeForRegularUsers: true,
-			AllowVolumeBrowserForRegularUsers:  false,
-			EnableHostManagementFeatures:       false,
-			EdgeAgentCheckinInterval:           portainer.DefaultEdgeAgentCheckinIntervalInSeconds,
-			TemplatesURL:                       portainer.DefaultTemplatesURL,
-			UserSessionTimeout:                 portainer.DefaultUserSessionTimeout,
+			OAuthSettings:                       portainer.OAuthSettings{},
+			AllowBindMountsForRegularUsers:      true,
+			AllowPrivilegedModeForRegularUsers:  true,
+			AllowVolumeBrowserForRegularUsers:   false,
+			AllowStackManagementForRegularUsers: true,
+			EnableHostManagementFeatures:        false,
+			EdgeAgentCheckinInterval:            portainer.DefaultEdgeAgentCheckinIntervalInSeconds,
+			TemplatesURL:                        portainer.DefaultTemplatesURL,
+			UserSessionTimeout:                  portainer.DefaultUserSessionTimeout,
 		}
 
 		err = store.SettingsService.UpdateSettings(defaultSettings)

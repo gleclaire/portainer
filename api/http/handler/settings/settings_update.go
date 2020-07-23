@@ -15,21 +15,21 @@ import (
 )
 
 type settingsUpdatePayload struct {
-	LogoURL                               *string
-	BlackListedLabels                     []portainer.Pair
-	AuthenticationMethod                  *int
-	LDAPSettings                          *portainer.LDAPSettings
-	OAuthSettings                         *portainer.OAuthSettings
-	AllowBindMountsForRegularUsers        *bool
-	AllowPrivilegedModeForRegularUsers    *bool
-	AllowVolumeBrowserForRegularUsers     *bool
-	DisableStackManagementForRegularUsers *bool
-	EnableHostManagementFeatures          *bool
-	SnapshotInterval                      *string
-	TemplatesURL                          *string
-	EdgeAgentCheckinInterval              *int
-	EnableEdgeComputeFeatures             *bool
-	UserSessionTimeout                    *string
+	LogoURL                             *string
+	BlackListedLabels                   []portainer.Pair
+	AuthenticationMethod                *int
+	LDAPSettings                        *portainer.LDAPSettings
+	OAuthSettings                       *portainer.OAuthSettings
+	AllowBindMountsForRegularUsers      *bool
+	AllowPrivilegedModeForRegularUsers  *bool
+	AllowVolumeBrowserForRegularUsers   *bool
+	AllowStackManagementForRegularUsers *bool
+	EnableHostManagementFeatures        *bool
+	SnapshotInterval                    *string
+	TemplatesURL                        *string
+	EdgeAgentCheckinInterval            *int
+	EnableEdgeComputeFeatures           *bool
+	UserSessionTimeout                  *string
 }
 
 func (payload *settingsUpdatePayload) Validate(r *http.Request) error {
@@ -126,8 +126,8 @@ func (handler *Handler) settingsUpdate(w http.ResponseWriter, r *http.Request) *
 		settings.EnableEdgeComputeFeatures = *payload.EnableEdgeComputeFeatures
 	}
 
-	if payload.DisableStackManagementForRegularUsers != nil {
-		settings.DisableStackManagementForRegularUsers = *payload.DisableStackManagementForRegularUsers
+	if payload.AllowStackManagementForRegularUsers != nil {
+		settings.AllowStackManagementForRegularUsers = *payload.AllowStackManagementForRegularUsers
 	}
 
 	if payload.SnapshotInterval != nil && *payload.SnapshotInterval != settings.SnapshotInterval {

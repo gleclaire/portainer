@@ -10,15 +10,15 @@ import (
 )
 
 type publicSettingsResponse struct {
-	LogoURL                               string                         `json:"LogoURL"`
-	AuthenticationMethod                  portainer.AuthenticationMethod `json:"AuthenticationMethod"`
-	AllowBindMountsForRegularUsers        bool                           `json:"AllowBindMountsForRegularUsers"`
-	AllowPrivilegedModeForRegularUsers    bool                           `json:"AllowPrivilegedModeForRegularUsers"`
-	AllowVolumeBrowserForRegularUsers     bool                           `json:"AllowVolumeBrowserForRegularUsers"`
-	DisableStackManagementForRegularUsers bool                           `json:"DisableStackManagementForRegularUsers"`
-	EnableHostManagementFeatures          bool                           `json:"EnableHostManagementFeatures"`
-	EnableEdgeComputeFeatures             bool                           `json:"EnableEdgeComputeFeatures"`
-	OAuthLoginURI                         string                         `json:"OAuthLoginURI"`
+	LogoURL                             string                         `json:"LogoURL"`
+	AuthenticationMethod                portainer.AuthenticationMethod `json:"AuthenticationMethod"`
+	AllowBindMountsForRegularUsers      bool                           `json:"AllowBindMountsForRegularUsers"`
+	AllowPrivilegedModeForRegularUsers  bool                           `json:"AllowPrivilegedModeForRegularUsers"`
+	AllowVolumeBrowserForRegularUsers   bool                           `json:"AllowVolumeBrowserForRegularUsers"`
+	AllowStackManagementForRegularUsers bool                           `json:"AllowStackManagementForRegularUsers"`
+	EnableHostManagementFeatures        bool                           `json:"EnableHostManagementFeatures"`
+	EnableEdgeComputeFeatures           bool                           `json:"EnableEdgeComputeFeatures"`
+	OAuthLoginURI                       string                         `json:"OAuthLoginURI"`
 }
 
 // GET request on /api/settings/public
@@ -29,19 +29,19 @@ func (handler *Handler) settingsPublic(w http.ResponseWriter, r *http.Request) *
 	}
 
 	publicSettings := &publicSettingsResponse{
-		LogoURL:                            settings.LogoURL,
-		AuthenticationMethod:               settings.AuthenticationMethod,
-		AllowBindMountsForRegularUsers:     settings.AllowBindMountsForRegularUsers,
-		AllowPrivilegedModeForRegularUsers: settings.AllowPrivilegedModeForRegularUsers,
-		AllowVolumeBrowserForRegularUsers:  settings.AllowVolumeBrowserForRegularUsers,
-		EnableHostManagementFeatures:       settings.EnableHostManagementFeatures,
-		EnableEdgeComputeFeatures:          settings.EnableEdgeComputeFeatures,
+		LogoURL:                             settings.LogoURL,
+		AuthenticationMethod:                settings.AuthenticationMethod,
+		AllowBindMountsForRegularUsers:      settings.AllowBindMountsForRegularUsers,
+		AllowPrivilegedModeForRegularUsers:  settings.AllowPrivilegedModeForRegularUsers,
+		AllowVolumeBrowserForRegularUsers:   settings.AllowVolumeBrowserForRegularUsers,
+		AllowStackManagementForRegularUsers: settings.AllowStackManagementForRegularUsers,
+		EnableHostManagementFeatures:        settings.EnableHostManagementFeatures,
+		EnableEdgeComputeFeatures:           settings.EnableEdgeComputeFeatures,
 		OAuthLoginURI: fmt.Sprintf("%s?response_type=code&client_id=%s&redirect_uri=%s&scope=%s&prompt=login",
 			settings.OAuthSettings.AuthorizationURI,
 			settings.OAuthSettings.ClientID,
 			settings.OAuthSettings.RedirectURI,
 			settings.OAuthSettings.Scopes),
-		DisableStackManagementForRegularUsers: settings.DisableStackManagementForRegularUsers,
 	}
 
 	return response.JSON(w, publicSettings)

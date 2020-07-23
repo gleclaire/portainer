@@ -7,7 +7,7 @@ export function SettingsViewModel(data) {
   this.AllowBindMountsForRegularUsers = data.AllowBindMountsForRegularUsers;
   this.AllowPrivilegedModeForRegularUsers = data.AllowPrivilegedModeForRegularUsers;
   this.AllowVolumeBrowserForRegularUsers = data.AllowVolumeBrowserForRegularUsers;
-  this.DisableStackManagementForRegularUsers = data.DisableStackManagementForRegularUsers;
+  this.AllowStackManagementForRegularUsers = data.AllowStackManagementForRegularUsers;
   this.SnapshotInterval = data.SnapshotInterval;
   this.TemplatesURL = data.TemplatesURL;
   this.EnableHostManagementFeatures = data.EnableHostManagementFeatures;
@@ -25,7 +25,7 @@ export function PublicSettingsViewModel(settings) {
   this.EnableEdgeComputeFeatures = settings.EnableEdgeComputeFeatures;
   this.LogoURL = settings.LogoURL;
   this.OAuthLoginURI = settings.OAuthLoginURI;
-  this.DisableStackManagementForRegularUsers = settings.DisableStackManagementForRegularUsers;
+  this.AllowStackManagementForRegularUsers = settings.AllowStackManagementForRegularUsers;
 }
 
 export function LDAPSettingsViewModel(data) {
