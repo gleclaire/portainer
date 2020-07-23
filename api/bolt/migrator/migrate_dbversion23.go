@@ -15,6 +15,7 @@ func (m *Migrator) updateSettingsToDB24() error {
 	}
 
 	legacySettings.UserSessionTimeout = portainer.DefaultUserSessionTimeout
+	legacySettings.AllowHostNamespaceForRegularUsers = true
 
 	return m.settingsService.UpdateSettings(legacySettings)
 }
